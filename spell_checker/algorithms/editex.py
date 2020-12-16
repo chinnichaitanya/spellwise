@@ -3,7 +3,7 @@ from ..utils import sort_list
 
 
 class Editex(object):
-    def __init__(self, dictionary):
+    def __init__(self, dictionary, group_cost=1, non_group_cost=2):
         if type(dictionary) is not Dictionary:
             raise TypeError(
                 "Expected `dictionary` to be of type {}. Received {}".format(
@@ -12,6 +12,8 @@ class Editex(object):
             )
 
         self.dictionary = dictionary
+        self.GROUP_COST = group_cost
+        self.NON_GROUP_COST = non_group_cost
 
     def _letters_code(self, a, b):
         values = [0, 0]
@@ -46,15 +48,15 @@ class Editex(object):
         if a == b:
             return 0
         elif self._letters_code(a, b):
-            return 1
-        return 2
+            return self.GROUP_COST
+        return self.NON_GROUP_COST
 
     def _delete(self, a, b):
         if a == b:
             return 0
         elif self._letters_code(a, b) or (a in ["h", "w"] and a != b):
-            return 1
-        return 2
+            return self.GROUP_COST
+        return self.NON_GROUP_COST
 
     def get_suggestions(self, query_word, max_distance=2):
         def search(dictionary_node, parent_source_letter, previous_row):
