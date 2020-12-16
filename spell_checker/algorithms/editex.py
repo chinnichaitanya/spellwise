@@ -66,14 +66,22 @@ class Editex(object):
                     + self._delete(parent_source_letter, current_source_letter)
                 ]
 
-                for i in range(1, len(query_word)):
+                for i in range(1, len(query_word) + 1):
+                    increment_source = self._delete(
+                        parent_source_letter, current_source_letter
+                    )
+                    if i == 1:
+                        increment_target = self.NON_GROUP_COST
+                    else:
+                        increment_target = self._delete(
+                            query_word[i - 2], query_word[i - 1]
+                        )
+
                     value = min(
-                        previous_row[i]
-                        + self._delete(parent_source_letter, current_source_letter),
-                        current_row[i - 1]
-                        + self._delete(query_word[i - 1], query_word[i]),
+                        previous_row[i] + increment_source,
+                        current_row[i - 1] + increment_target,
                         previous_row[i - 1]
-                        + self._replace(current_source_letter, query_word[i]),
+                        + self._replace(current_source_letter, query_word[i - 1]),
                     )
                     current_row.append(value)
 
@@ -100,15 +108,30 @@ class Editex(object):
 
         suggestions = list()
 
+        first_row = [0] * (len(query_word) + 1)
+        first_row[1] = self.NON_GROUP_COST
+        for i in range(2, len(query_word) + 1):
+            first_row[i] = first_row[i - 1] + self._delete(
+                query_word[i - 2], query_word[i - 1]
+            )
         for source_letter in self.dictionary.children:
-            first_row = [0] * (len(query_word))
-            first_row[0] = self._replace(query_word[0], source_letter)
-            for i in range(1, len(first_row)):
-                first_row[i] = first_row[i - 1] + self._delete(
-                    query_word[i - 1], query_word[i]
+            second_row = [self.NON_GROUP_COST]
+            for i in range(1, len(query_word) + 1):
+                increment_source = self.NON_GROUP_COST
+                if i == 1:
+                    increment_target = self.NON_GROUP_COST
+                else:
+                    increment_target = self._delete(
+                        query_word[i - 2], query_word[i - 1]
+                    )
+                value = min(
+                    first_row[i] + increment_source,
+                    second_row[i - 1] + increment_target,
+                    first_row[i - 1] + self._replace(query_word[i - 1], source_letter),
                 )
+                second_row.append(value)
 
-            search(self.dictionary.children[source_letter], source_letter, first_row)
+            search(self.dictionary.children[source_letter], source_letter, second_row)
 
         suggestions = sort_list(suggestions, "distance")
         return suggestions
