@@ -7,9 +7,17 @@ Extremely fast spelling checker and suggester in Python! Currently supports the 
 
 Both the above algorithm use an underlying [Trie](https://www.wikiwand.com/en/Trie) based dictionary for efficient storage and fast computation! The implementations of both Edit-distance and Editex algorithms are inspired from the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
 
+## Installation
+
+To be updated soon!
+
+## Usage
+
+To be updated soon!
+
 ## Memory and Time profiling
 
-The following are the statistics upon running the algorithms on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
+The following are the statistics upon running the following tasks on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
 
 | Task                                                                   |   Memory   | Time (in milliseconds) | Remarks                 |
 | :--------------------------------------------------------------------- | :--------: | :--------------------: | :---------------------- |
