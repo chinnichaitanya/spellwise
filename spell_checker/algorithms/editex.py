@@ -52,7 +52,7 @@ class Editex(object):
     def _delete(self, a, b):
         if a == b:
             return 0
-        elif self._letters_code(a, b) or ((a == "h" or a == "w") and a != b):
+        elif self._letters_code(a, b) or (a in ["h", "w"] and a != b):
             return 1
         return 2
 
