@@ -23,12 +23,12 @@ class Levenshtein(object):
             for current_source_letter in dictionary_node.children:
                 current_row = [previous_row[0] + 1]
 
-                for i in range(1, len(query_word)):
+                for i in range(1, len(query_word) + 1):
                     value = min(
                         previous_row[i] + 1,
                         current_row[i - 1] + 1,
                         previous_row[i - 1]
-                        + self._replace(current_source_letter, query_word[i]),
+                        + self._replace(current_source_letter, query_word[i - 1]),
                     )
                     current_row.append(value)
 
@@ -51,13 +51,8 @@ class Levenshtein(object):
 
         suggestions = list()
 
-        for source_letter in self.dictionary.children:
-            first_row = [0] * (len(query_word))
-            first_row[0] = self._replace(query_word[0], source_letter)
-            for i in range(1, len(first_row)):
-                first_row[i] = first_row[i - 1] + 1
-
-            search(self.dictionary.children[source_letter], first_row)
+        first_row = range(0, len(query_word) + 1)
+        search(self.dictionary, first_row)
 
         suggestions = sort_list(suggestions, "distance")
         return suggestions
