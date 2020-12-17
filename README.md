@@ -17,13 +17,13 @@ To be updated soon!
 
 ## Memory and Time profiling
 
-The following are the statistics upon running the following tasks on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
+The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
 
-| Task                                                                   |   Memory   | Time (in milliseconds) | Remarks                 |
-| :--------------------------------------------------------------------- | :--------: | :--------------------: | :---------------------- |
-| Update Trie dictionary with words                                      | ~ 116.5 MB |         ~ 945          | For 119,095 words       |
-| Get Levenshtein suggestions for word "hallo" with maximum distance = 2 |    ~ 0     |          ~ 40          | Received 97 suggestions |
-| Get Editex suggestions for word "hallo" with maximum distance = 2      |    ~ 0     |          ~ 80          | Received 26 suggestions |
+| Task                                                                   |   Memory   | Time (in milliseconds) | Remarks                                                                                                           |
+| :--------------------------------------------------------------------- | :--------: | :--------------------: | :---------------------------------------------------------------------------------------------------------------- |
+| Update Trie dictionary with words                                      | ~ 116.5 MB |         ~ 945          | <ul> <li>For 119,095 words</li> <li>Occupies ~ 1 KB per word</li> <li>Takes ~ 7 micro seconds per word</li> </ul> |
+| Get Levenshtein suggestions for word "hallo" with maximum distance = 2 |    ~ 0     |          ~ 40          | Received 97 suggestions                                                                                           |
+| Get Editex suggestions for word "hallo" with maximum distance = 2      |    ~ 0     |          ~ 80          | Received 26 suggestions                                                                                           |
 
 ## References
 
