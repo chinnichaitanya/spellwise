@@ -1,17 +1,11 @@
-from ..dictionary import Dictionary
 from ..utils import sort_list
+from .base import Base
 
 
-class Editex(object):
-    def __init__(self, dictionary, group_cost=1, non_group_cost=2):
-        if type(dictionary) is not Dictionary:
-            raise TypeError(
-                "Expected `dictionary` to be of type {}. Received {}".format(
-                    Dictionary.__name__, type(dictionary)
-                )
-            )
+class Editex(Base):
+    def __init__(self, group_cost=1, non_group_cost=2):
+        super(Editex, self).__init__()
 
-        self.dictionary = dictionary
         self.GROUP_COST = group_cost
         self.NON_GROUP_COST = non_group_cost
 
@@ -87,17 +81,13 @@ class Editex(object):
 
                 if (
                     current_row[-1] <= max_distance
-                    and dictionary_node.children[current_source_letter].word_at_node
+                    and dictionary_node.children[current_source_letter].words_at_node
                     is not None
                 ):
-                    suggestions.append(
-                        {
-                            "word": dictionary_node.children[
-                                current_source_letter
-                            ].word_at_node,
-                            "distance": current_row[-1],
-                        }
-                    )
+                    for word in dictionary_node.children[
+                        current_source_letter
+                    ].words_at_node:
+                        suggestions.append({"word": word, "distance": current_row[-1]})
 
                 if min(current_row) <= max_distance:
                     search(
@@ -114,7 +104,7 @@ class Editex(object):
             first_row[i] = first_row[i - 1] + self._delete(
                 query_word[i - 2], query_word[i - 1]
             )
-        for source_letter in self.dictionary.children:
+        for source_letter in self._dictionary.children:
             second_row = [self.NON_GROUP_COST]
             for i in range(1, len(query_word) + 1):
                 increment_source = self.NON_GROUP_COST
@@ -131,7 +121,7 @@ class Editex(object):
                 )
                 second_row.append(value)
 
-            search(self.dictionary.children[source_letter], source_letter, second_row)
+            search(self._dictionary.children[source_letter], source_letter, second_row)
 
         suggestions = sort_list(suggestions, "distance")
         return suggestions
