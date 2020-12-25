@@ -9,7 +9,7 @@ class Editex(Base):
         self.GROUP_COST = group_cost
         self.NON_GROUP_COST = non_group_cost
 
-    def _letters_code(self, a, b):
+    def _letters_in_group(self, a, b):
         values = [0, 0]
         letters = [a, b]
         for i in [0, 1]:
@@ -41,14 +41,14 @@ class Editex(Base):
     def _replace(self, a, b):
         if a == b:
             return 0
-        elif self._letters_code(a, b):
+        elif self._letters_in_group(a, b):
             return self.GROUP_COST
         return self.NON_GROUP_COST
 
     def _delete(self, a, b):
         if a == b:
             return 0
-        elif self._letters_code(a, b) or (a in ["h", "w"] and a != b):
+        elif self._letters_in_group(a, b) or (a in ["h", "w"] and a != b):
             return self.GROUP_COST
         return self.NON_GROUP_COST
 
