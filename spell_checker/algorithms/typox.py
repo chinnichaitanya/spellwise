@@ -10,7 +10,8 @@ class Typox(Base):
         self.NON_GROUP_COST = non_group_cost
 
     def _letters_in_group(self, a, b):
-        values = [0, 0]
+        value_a = 0
+        value_b = 0
         for power, group in enumerate(
             [
                 ("q", "a", "w"),
@@ -39,11 +40,11 @@ class Typox(Base):
             ]
         ):
             if a in group:
-                values[0] += pow(2, power)
+                value_a += pow(2, power)
             if b in group:
-                values[1] += pow(2, power)
+                value_b += pow(2, power)
 
-        if (values[0] & values[1]) > 0:
+        if (value_a & value_b) > 0:
             return True
         else:
             return False

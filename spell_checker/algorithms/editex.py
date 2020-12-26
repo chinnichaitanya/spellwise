@@ -10,30 +10,28 @@ class Editex(Base):
         self.NON_GROUP_COST = non_group_cost
 
     def _letters_in_group(self, a, b):
-        values = [0, 0]
-        letters = [a, b]
-        for i in [0, 1]:
-            if letters[i] in ["a", "e", "i", "o", "u", "y"]:
-                values[i] += pow(2, 9)
-            if letters[i] in ["b", "p"]:
-                values[i] += pow(2, 8)
-            if letters[i] in ["c", "k", "q"]:
-                values[i] += pow(2, 7)
-            if letters[i] in ["d", "t"]:
-                values[i] += pow(2, 6)
-            if letters[i] in ["l", "r"]:
-                values[i] += pow(2, 5)
-            if letters[i] in ["m", "n"]:
-                values[i] += pow(2, 4)
-            if letters[i] in ["g", "j"]:
-                values[i] += pow(2, 3)
-            if letters[i] in ["f", "p", "v"]:
-                values[i] += pow(2, 2)
-            if letters[i] in ["x", "s", "z"]:
-                values[i] += pow(2, 1)
-            if letters[i] in ["c", "s", "z"]:
-                values[i] += pow(2, 0)
-        if (values[0] & values[1]) > 0:
+        value_a = 0
+        value_b = 0
+        for power, group in enumerate(
+            [
+                ("a", "e", "i", "o", "u", "y"),
+                ("b", "p"),
+                ("c", "k", "q"),
+                ("d", "t"),
+                ("l", "r"),
+                ("m", "n"),
+                ("g", "j"),
+                ("f", "p", "v"),
+                ("x", "s", "z"),
+                ("c", "s", "z"),
+            ]
+        ):
+            if a in group:
+                value_a += pow(2, power)
+            if b in group:
+                value_b += pow(2, power)
+
+        if (value_a & value_b) > 0:
             return True
         else:
             return False
