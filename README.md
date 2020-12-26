@@ -5,6 +5,7 @@
 - Edit-distance, [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
 - Editex, [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
 - Caverphone 1.0 and Caverphone 2.0 [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
+- QWERTY Keyboard layout Typographic based correction algorithm (Typox), inspired from [Ahmad, Indrayana, Wibisono, and Ijtihadie (2017)](https://ieeexplore.ieee.org/document/8257147). This implementation might not be the exact one specified in the paper since it is not available to read for free.
 
 All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/Trie) based dictionary for efficient storage and fast computation! The implementations of both Edit-distance and Editex algorithms are inspired from the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
 
@@ -76,6 +77,19 @@ The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel C
         <td>
             <ul>
                 <li>For word "hallo"</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Typox</td>
+        <td>119,095</td>
+        <td>~ 127 MB</td>
+        <td>~ 1360 milliseconds</td>
+        <td>~ 200 milliseconds</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+                <li>With max distance 2</li>
             </ul>
         </td>
     </tr>
