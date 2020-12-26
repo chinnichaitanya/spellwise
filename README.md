@@ -20,11 +20,66 @@ To be updated soon!
 
 The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
 
-| Task                                                                   |   Memory   | Time (in milliseconds) | Remarks                                                                                                           |
-| :--------------------------------------------------------------------- | :--------: | :--------------------: | :---------------------------------------------------------------------------------------------------------------- |
-| Update Trie dictionary with words                                      | ~ 116.5 MB |         ~ 945          | <ul> <li>For 119,095 words</li> <li>Occupies ~ 1 KB per word</li> <li>Takes ~ 7 micro seconds per word</li> </ul> |
-| Get Levenshtein suggestions for word "hallo" with maximum distance = 2 |    ~ 0     |          ~ 40          | Received 97 suggestions                                                                                           |
-| Get Editex suggestions for word "hallo" with maximum distance = 2      |    ~ 0     |          ~ 80          | Received 26 suggestions                                                                                           |
+<table>
+    <tr>
+        <th>Algorithm</th>
+        <th>No. of words</th>
+        <th>Memory used</th>
+        <th>Time to index</th>
+        <th>Time to inference</th>
+        <th>Remarks</th>
+    </tr>
+    <tr>
+        <td>Levenshtein</td>
+        <td>119,095</td>
+        <td>~ 127 MB</td>
+        <td>~ 1160 milliseconds</td>
+        <td>~ 36 milliseconds</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+                <li>With max distance 2</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Editex</td>
+        <td>119,095</td>
+        <td>~ 127 MB</td>
+        <td>~ 1200 milliseconds</td>
+        <td>~ 90 milliseconds</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+                <li>With max distance 2</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Caverphone 1.0</td>
+        <td>119,095</td>
+        <td>~ 36.7 MB</td>
+        <td>~ 1700 milliseconds</td>
+        <td>~ 0.2 milliseconds (yes right!)</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Caverphone 2.0</td>
+        <td>119,095</td>
+        <td>~ 99 MB</td>
+        <td>~ 2400 milliseconds</td>
+        <td>~ 0.4 milliseconds (yes right!)</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
 ## References
 
