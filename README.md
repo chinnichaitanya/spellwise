@@ -4,6 +4,7 @@ Extremely fast spelling checker and suggester in Python! Currently supports the 
 
 - Edit-distance, [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
 - Editex, [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
+- Caverphone 1.0 and Caverphone 2.0 [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
 
 Both the above algorithm use an underlying [Trie](https://www.wikiwand.com/en/Trie) based dictionary for efficient storage and fast computation! The implementations of both Edit-distance and Editex algorithms are inspired from the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
 
@@ -30,4 +31,6 @@ The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel C
 - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf
 - https://scholar.harvard.edu/jfeigenbaum/software/editex
 - https://github.com/J535D165/FEBRL-fork-v0.4.2/blob/master/stringcmp.py
+- https://caversham.otago.ac.nz/files/working/ctp060902.pdf
+- https://en.wikipedia.org/wiki/Caverphone
 - http://stevehanov.ca/blog/?id=114
