@@ -102,4 +102,6 @@ The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel C
 - https://github.com/J535D165/FEBRL-fork-v0.4.2/blob/master/stringcmp.py
 - https://caversham.otago.ac.nz/files/working/ctp060902.pdf
 - https://en.wikipedia.org/wiki/Caverphone
+- https://ieeexplore.ieee.org/document/8257147
+- https://www.semanticscholar.org/paper/Edit-distance-weighting-modification-using-phonetic-Ahmad-Indrayana/0d74db8a20f7b46b98c2c77750b9b973a3e4a7b2
 - http://stevehanov.ca/blog/?id=114
