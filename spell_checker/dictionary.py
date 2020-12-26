@@ -7,7 +7,7 @@ class Dictionary(object):
         for word in words:
             processed_word, actual_word = word
             trie_node = self
-            for letter in processed_word.lower():
+            for letter in processed_word:
                 if letter not in trie_node.children:
                     trie_node.children.update({letter: Dictionary()})
                 trie_node = trie_node.children[letter]

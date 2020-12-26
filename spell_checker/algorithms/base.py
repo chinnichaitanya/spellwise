@@ -3,10 +3,12 @@ from ..dictionary import Dictionary
 
 class Base(object):
     def __init__(self):
+        self._alphabet = "abcdefghijklmnopqrstuvwxyz"
+        self._vowels = "aeiou"
         self._dictionary = Dictionary()
 
     def _pre_process(self, word):
-        return word
+        return word.lower()
 
     def add_words(self, words):
         processed_actual_words = [(self._pre_process(word), word) for word in words]
