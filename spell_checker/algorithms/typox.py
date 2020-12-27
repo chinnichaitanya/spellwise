@@ -5,13 +5,36 @@ from .base import Base
 
 
 class Typox(Base):
+    """The QWERTY Keyboard layout Typographic based correction algorithm.
+        This might not be the exact implementation of the algorithm because the paper is not availbe to read for free
+
+        Reference: https://ieeexplore.ieee.org/document/8257147
+    """
+
     def __init__(self, group_cost: float = 1, non_group_cost: float = 2) -> None:
+        """The constructor for the class
+
+        Args:
+            group_cost (float, optional): The cost to replace of delete when the letters belong to the group. Defaults to 1
+            non_group_cost (float, optional): The cost to replace of delete when the letters do not belong to the group. Defaults to 2
+        """
+
         super(Typox, self).__init__()
 
         self.GROUP_COST = group_cost
         self.NON_GROUP_COST = non_group_cost
 
     def _letters_in_group(self, a: str, b: str) -> bool:
+        """Determine if the letters are in the same group or not
+
+        Args:
+            a (str): First letter
+            b (str): Second letter
+
+        Returns:
+            bool: Whether the letters belong to the same group or not
+        """
+
         value_a = 0
         value_b = 0
         for power, group in enumerate(
@@ -52,6 +75,16 @@ class Typox(Base):
             return False
 
     def _replace(self, a: str, b: str) -> float:
+        """Cost to replace the letter in query word with the target word
+
+        Args:
+            a (str): First letter
+            b (str): Second letter
+
+        Returns:
+            float: The cost to replace the letters
+        """
+
         if a == b:
             return 0
         elif self._letters_in_group(a, b):
@@ -59,6 +92,16 @@ class Typox(Base):
         return self.NON_GROUP_COST
 
     def _delete(self, a: str, b: str) -> float:
+        """The cost to delete the letter in query word with the target word
+
+        Args:
+            a (str): First letter
+            b (str): Second letter
+
+        Returns:
+            float: The cost to delete the letters
+        """
+
         if a == b:
             return 0
         elif self._letters_in_group(a, b):
@@ -66,7 +109,24 @@ class Typox(Base):
         return self.NON_GROUP_COST
 
     def get_suggestions(self, query_word: str, max_distance: int = 2) -> List[dict]:
+        """Get suggestions based on the edit-distance using dynamic-programming approach
+
+        Args:
+            query_word (str): The given query word for suggesting indexed words
+            max_distance (int, optional): The maximum distance between the words indexed and the query word. Defaults to 2
+
+        Returns:
+            List[dict]: The word suggestions with their corresponding distances
+        """
+
         def search(dictionary_node, parent_source_letter, previous_row):
+            """Search for the candidates in the given dictionary node's children
+
+            Args:
+                dictionary_node (Dictionary): The node in the Trie dictionary
+                previous_row (list): The previous row in the dynamic-programming approach
+            """
+
             for current_source_letter in dictionary_node.children:
                 current_row = [
                     previous_row[0]

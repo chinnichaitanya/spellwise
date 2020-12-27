@@ -2,11 +2,19 @@ from typing import List
 
 
 class Dictionary(object):
+    """Trie based dictionary class for indexing words to consider for spelling correction"""
+
     def __init__(self) -> None:
         self.words_at_node = None
         self.children = {}
 
     def add_words(self, words: List[str]) -> None:
+        """Add words to index to the Trie dictionary
+
+        Args:
+            words (List[str]): The list of words to index to the dictionary
+        """
+
         for word in words:
             processed_word, actual_word = word
             trie_node = self
