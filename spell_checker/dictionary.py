@@ -1,9 +1,12 @@
+from typing import List
+
+
 class Dictionary(object):
-    def __init__(self):
+    def __init__(self) -> None:
         self.words_at_node = None
         self.children = {}
 
-    def add_words(self, words):
+    def add_words(self, words: List[str]) -> None:
         for word in words:
             processed_word, actual_word = word
             trie_node = self

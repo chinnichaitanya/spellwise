@@ -1,15 +1,17 @@
+from typing import List
+
 from ..utils import sort_list
 from .base import Base
 
 
 class Editex(Base):
-    def __init__(self, group_cost=1, non_group_cost=2):
+    def __init__(self, group_cost: float = 1, non_group_cost: float = 2) -> None:
         super(Editex, self).__init__()
 
         self.GROUP_COST = group_cost
         self.NON_GROUP_COST = non_group_cost
 
-    def _letters_in_group(self, a, b):
+    def _letters_in_group(self, a: str, b: str) -> bool:
         value_a = 0
         value_b = 0
         for power, group in enumerate(
@@ -36,21 +38,21 @@ class Editex(Base):
         else:
             return False
 
-    def _replace(self, a, b):
+    def _replace(self, a: str, b: str) -> float:
         if a == b:
             return 0
         elif self._letters_in_group(a, b):
             return self.GROUP_COST
         return self.NON_GROUP_COST
 
-    def _delete(self, a, b):
+    def _delete(self, a: str, b: str) -> float:
         if a == b:
             return 0
         elif self._letters_in_group(a, b) or (a in ["h", "w"] and a != b):
             return self.GROUP_COST
         return self.NON_GROUP_COST
 
-    def get_suggestions(self, query_word, max_distance=2):
+    def get_suggestions(self, query_word: str, max_distance: int = 2) -> List[dict]:
         def search(dictionary_node, parent_source_letter, previous_row):
             for current_source_letter in dictionary_node.children:
                 current_row = [

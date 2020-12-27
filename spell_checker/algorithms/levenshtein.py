@@ -1,20 +1,23 @@
+from typing import List
+
+from ..dictionary import Dictionary
 from ..utils import sort_list
 from .base import Base
 
 
 class Levenshtein(Base):
-    def __init__(self):
+    def __init__(self) -> None:
         super(Levenshtein, self).__init__()
 
-    def _replace(self, a, b):
+    def _replace(self, a: str, b: str) -> float:
         if a == b:
             return 0
         return 1
 
-    def get_suggestions(self, query_word, max_distance=2):
+    def get_suggestions(self, query_word: str, max_distance: int = 2) -> List[dict]:
         processed_query_word = self._pre_process(query_word)
 
-        def search(dictionary_node, previous_row):
+        def search(dictionary_node: Dictionary, previous_row: list):
             for current_source_letter in dictionary_node.children:
                 current_row = [previous_row[0] + 1]
 

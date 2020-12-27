@@ -1,12 +1,14 @@
+from typing import List
+
 from ..utils import sort_list
 from .base import Base
 
 
 class CaverphoneTwo(Base):
-    def __init__(self):
+    def __init__(self) -> None:
         super(CaverphoneTwo, self).__init__()
 
-    def _pre_process(self, word):
+    def _pre_process(self, word: str) -> str:
         word = word.lower()
         word = "".join(_w for _w in word if _w in self._alphabet)
 
@@ -104,12 +106,12 @@ class CaverphoneTwo(Base):
 
         return word
 
-    def _replace(self, a, b):
+    def _replace(self, a: str, b: str) -> float:
         if a == b:
             return 0
         return 1
 
-    def get_suggestions(self, query_word, max_distance=0):
+    def get_suggestions(self, query_word: str, max_distance: int = 0) -> List[dict]:
         processed_query_word = self._pre_process(query_word)
 
         def search(dictionary_node, previous_row):
