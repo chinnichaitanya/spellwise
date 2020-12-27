@@ -38,7 +38,7 @@ algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or 
 # (2) Index the words / names to the algorithm
 # Indexing can be done by adding words from a file
 algorithm.add_from_path("<path-to-the-dictionary-file>")
-# or by adding it manually
+# or by adding them manually
 algorithm.add_words(["spell", "spelling", "check"])
 
 # (3) Fetch the suggestions for the word
