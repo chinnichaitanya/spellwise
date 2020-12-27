@@ -15,7 +15,37 @@ To be updated soon!
 
 ## Usage
 
-To be updated soon!
+Currently there are five algorithms available for use with the following classnames,
+
+- `Levenshtein`
+- `Editex`
+- `CaverphoneOne`
+- `CaverphoneTwo`
+- `Typox`
+
+Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-checker/tree/master/examples) folder for specific usage of each algorithm. But in a general sense, each algorithm has three parts,
+
+- Initialization (initialize the class object for the algorithm to use)
+- Index correct words / names (add correct words or names to the dictionary)
+- Fetch suggestions (inference)
+
+```python
+from spell_checker import import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
+
+# (1) Initialize the desired algorithm
+algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or Typox as well
+
+# (2) Index the words / names to the algorithm
+# Indexing can be done by adding words from a file
+algorithm.add_from_path("<path-to-the-dictionary-file>")
+# or by adding it manually
+algorithm.add_words(["spell", "spelling", "check"])
+
+# (3) Fetch the suggestions for the word
+suggestions = algorithm.get_suggestions("spellin")
+print(suggestions)
+
+```
 
 ## Memory and Time profiling
 
