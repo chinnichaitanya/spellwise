@@ -8,7 +8,7 @@ from .base import Base
 class Levenshtein(Base):
     """The Levenshtein algorithm class for suggesting words based on edit-distance
 
-        Reference: https://dl.acm.org/doi/10.1145/356827.356830
+    Reference: https://dl.acm.org/doi/10.1145/356827.356830
     """
 
     def __init__(self) -> None:

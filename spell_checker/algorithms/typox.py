@@ -6,9 +6,9 @@ from .base import Base
 
 class Typox(Base):
     """The QWERTY Keyboard layout Typographic based correction algorithm.
-        This might not be the exact implementation of the algorithm because the paper is not availbe to read for free
+    This might not be the exact implementation of the algorithm because the paper is not availbe to read for free
 
-        Reference: https://ieeexplore.ieee.org/document/8257147
+    Reference: https://ieeexplore.ieee.org/document/8257147
     """
 
     def __init__(self, group_cost: float = 1, non_group_cost: float = 2) -> None:

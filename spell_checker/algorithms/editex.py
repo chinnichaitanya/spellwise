@@ -7,7 +7,7 @@ from .base import Base
 class Editex(Base):
     """The Editex algorithm class for suggesting phonetically similar words
 
-        Reference: https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf
+    Reference: https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf
     """
 
     def __init__(self, group_cost: float = 1, non_group_cost: float = 2) -> None:
