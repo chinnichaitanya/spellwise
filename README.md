@@ -9,11 +9,11 @@
 
 All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/Trie) based dictionary for efficient storage and fast computation! The implementations of both Edit-distance and Editex algorithms are inspired from the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
 
-## Installation
+## 💾 Installation
 
 To be updated soon!
 
-## Usage
+## 🧑‍💻 Usage
 
 Currently there are five algorithms available for use with the following classnames,
 
@@ -49,12 +49,12 @@ print(suggestions)
 
 ```
 
-## Detailed usage of each algorithm
+## 💡 Detailed usage of each algorithm
 
 There are many algorithms currently available in the package and each one of them are used for different purposes.
 We will discuss each algorithm in specific in the following sections.
 
-### Levenshtein
+### (1) Levenshtein
 
 The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the mispelled word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and correct word.
 
@@ -91,7 +91,7 @@ nun 	 1
 
 ```
 
-### Editex
+### (2) Editex
 
 The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
 
@@ -130,7 +130,7 @@ gun 	 2
 
 Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` to be 1 since there is only one replacement necessary. On the other hand, `Editex` algorithm computes this distance to be 2 since phonetically, the words are farther apart.
 
-### Caverphone 1.0 and Caverphone 2.0
+### (3) Caverphone 1.0 and Caverphone 2.0
 
 The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
 
@@ -167,7 +167,7 @@ wren 	 0
 
 ```
 
-### Typox
+### (4) Typox
 
 The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is based on the philosophy of the `Editex` algorithm by grouping of letters is based on their locations on the keyboard, instead of matching them phonetically. This might not be the exact implementation of the algorithm since the original paper is not available to read for free.
 
@@ -197,7 +197,7 @@ phone 	 2
 
 Notice that `Typox` didn not suggest words like `choke`, `come`, `chore`, `chose` etc., (which `Levenshtein` would suggest) even though they are of edit-distance 2 with the word `ohome`. But it rather suggests closest wrods based on the QWERTY keyboard layout which are `phone` and `home`.
 
-## Memory and Time profiling
+## ⚡️ Memory and Time profiling
 
 The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
 
@@ -275,7 +275,14 @@ The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel C
     </tr>
 </table>
 
-## References
+## 🙌 Contributing
+
+Please feel free to raise PRs! 😃
+
+There are so many algorithms to be added and improvements to be made to this package.
+This is still in an early version and would love to have you contribute!
+
+## 📝 References
 
 - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf
 - https://scholar.harvard.edu/jfeigenbaum/software/editex
