@@ -29,8 +29,6 @@ Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-c
 - Index correct words / names (add correct words or names to the dictionary)
 - Fetch suggestions (inference)
 
-### General usage
-
 ```python
 from spell_checker import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
 
@@ -51,12 +49,12 @@ print(suggestions)
 
 ```
 
-### Problem specific
+## Detailed usage of each algorithm
 
 There are many algorithms currently available in the package and each one of them are used for different purposes.
 We will discuss each algorithm in specific in the following sections.
 
-#### Levenshtein
+### Levenshtein
 
 The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the mispelled word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and correct word.
 
@@ -93,7 +91,7 @@ nun 	 1
 
 ```
 
-#### Editex
+### Editex
 
 The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
 
@@ -132,7 +130,7 @@ gun 	 2
 
 Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` to be 1 since there is only one replacement necessary. On the other hand, `Editex` algorithm computes this distance to be 2 since phonetically, the words are farther apart.
 
-#### Caverphone 1.0 and Caverphone 2.0
+### Caverphone 1.0 and Caverphone 2.0
 
 The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
 
@@ -169,7 +167,7 @@ wren 	 0
 
 ```
 
-#### Typox
+### Typox
 
 The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is based on the philosophy of the `Editex` algorithm by grouping of letters is based on their locations on the keyboard, instead of matching them phonetically. This might not be the exact implementation of the algorithm since the original paper is not available to read for free.
 
