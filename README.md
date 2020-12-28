@@ -29,8 +29,10 @@ Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-c
 - Index correct words / names (add correct words or names to the dictionary)
 - Fetch suggestions (inference)
 
+### General usage
+
 ```python
-from spell_checker import import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
+from spell_checker import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
 
 # (1) Initialize the desired algorithm
 algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or Typox as well
@@ -43,9 +45,159 @@ algorithm.add_words(["spell", "spelling", "check"])
 
 # (3) Fetch the suggestions for the word
 suggestions = algorithm.get_suggestions("spellin")
+# The `suggestions` is a list of dict with fields `word` and `distance`
+# [{"word": ..., "distance": ...}, ...]
 print(suggestions)
 
 ```
+
+### Problem specific
+
+There are many algorithms currently available in the package and each one of them are used for different purposes.
+We will discuss each algorithm in specific in the following sections.
+
+#### Levenshtein
+
+The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the mispelled word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and correct word.
+
+```python
+from spell_checker import Levenshtein
+
+levenshtein = Levenshtein()
+levenshtein.add_from_path("examples/data/american-english")
+
+suggestions = levenshtein.get_suggestions("run")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Levenshtein provides the following,
+
+```shell
+Word 	 Distance
+=================
+run 	 0
+bun 	 1
+dun 	 1
+fun 	 1
+gun 	 1
+hun 	 1
+jun 	 1
+jun 	 1
+mun 	 1
+nun 	 1
+
+```
+
+#### Editex
+
+The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
+
+```python
+from spell_checker import Editex
+
+editex = Editex()
+editex.add_from_path("examples/data/american-english")
+
+suggestions = editex.get_suggestions("run")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Editex suggests the following,
+
+```shell
+Word 	 Distance
+=================
+run 	 0
+ran 	 1
+ron 	 1
+ruin 	 1
+rum 	 1
+bun 	 2
+dun 	 2
+dunn 	 2
+fun 	 2
+gun 	 2
+
+```
+
+Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` to be 1 since there is only one replacement necessary. On the other hand, `Editex` algorithm computes this distance to be 2 since phonetically, the words are farther apart.
+
+#### Caverphone 1.0 and Caverphone 2.0
+
+The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
+
+```python
+from spell_checker import CaverphoneTwo # or CaverphoneOne
+
+caverphone = CaverphoneTwo()
+caverphone.add_from_path("examples/data/american-english")
+
+suggestions = caverphone.get_suggestions("run")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Caverphone v2 provides the following suggestions,
+
+```shell
+Word 	 Distance
+=================
+rain 	 0
+ran 	 0
+rein 	 0
+rene 	 0
+roan 	 0
+ron 	 0
+ruin 	 0
+run 	 0
+rune 	 0
+wren 	 0
+
+```
+
+#### Typox
+
+The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is based on the philosophy of the `Editex` algorithm by grouping of letters is based on their locations on the keyboard, instead of matching them phonetically. This might not be the exact implementation of the algorithm since the original paper is not available to read for free.
+
+```python
+from spell_checker import Typox
+
+typox = Typox()
+typox.add_from_path("examples/data/american-english")
+
+suggestions = typox.get_suggestions("ohomr")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Typox provides the following words,
+
+```shell
+Word 	 Distance
+=================
+home 	 2
+phone 	 2
+```
+
+Notice that `Typox` didn not suggest words like `choke`, `come`, `chore`, `chose` etc., (which `Levenshtein` would suggest) even though they are of edit-distance 2 with the word `ohome`. But it rather suggests closest wrods based on the QWERTY keyboard layout which are `phone` and `home`.
 
 ## Memory and Time profiling
 
