@@ -19,8 +19,8 @@ The easiest way to install `spellwise` is through `pip`.
 
 ```shell
 pip install spellwise
-```
 
+```
 
 ## 🧑‍💻 Usage
 
@@ -149,6 +149,41 @@ gun 	 2
 
 Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` to be 1 since there is only one replacement necessary. On the other hand, `Editex` algorithm computes this distance to be 2 since phonetically, the words are farther apart.
 
+As mentioned above, the Editex algorithm uses different costs for replacement and deletetion. These values can be configured for fetching different results.
+
+```python
+from spellwise import Editex
+
+editex = Editex(group_cost=0.5, non_group_cost=3) # configure the group cost and non-group cost
+editex.add_from_path("examples/data/american-english")
+
+suggestions = editex.get_suggestions("run")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Configuring `group_cost=0.5` and `non_group_cost=3` in the above example results in the following suggestions,
+
+```shell
+Word 	 Distance
+=================
+run 	 0
+ran 	 0.5
+ron 	 0.5
+ruin 	 0.5
+rum 	 0.5
+lan 	 1.0
+len 	 1.0
+lin 	 1.0
+lon 	 1.0
+loon 	 1.0
+
+```
+
 ### (3) Caverphone 1.0 and Caverphone 2.0
 
 The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
@@ -215,6 +250,34 @@ phone 	 2
 ```
 
 Notice that `Typox` didn not suggest words like `choke`, `come`, `chore`, `chose` etc., (which `Levenshtein` would suggest) even though they are of edit-distance 2 with the word `ohome`. But it rather suggests closest wrods based on the QWERTY keyboard layout which are `phone` and `home`.
+
+As mentioned above, the Typox algorithm is similar to Editex and uses different costs for replacement and deletetion. These values can also be configured for fetching different results.
+
+```python
+from spellwise import Typox
+
+typox = Typox(group_cost=0.5, non_group_cost=3)
+typox.add_from_path("examples/data/american-english")
+
+suggestions = typox.get_suggestions("ohomr")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Typox provides the following suggestion for the word `ohomr` after setting the `group_cost=0.5` and `non_group_cost=3`.
+
+```shell
+Word 	 Distance
+=================
+phone 	 1.5
+phoned 	 2.0
+phones 	 2.0
+
+```
 
 ## ⚡️ Memory and Time profiling
 
