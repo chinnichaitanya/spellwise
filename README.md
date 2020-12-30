@@ -14,9 +14,9 @@ The following algorithms are supported currently,
 - Edit-distance, [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
 - Editex, [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
 - Caverphone 1.0 and Caverphone 2.0 [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
-- QWERTY Keyboard layout Typographic based correction algorithm (Typox), inspired from [Ahmad, Indrayana, Wibisono, and Ijtihadie (2017)](https://ieeexplore.ieee.org/document/8257147). This implementation might not be the exact one specified in the paper since it is not available to read for free
+- QWERTY Keyboard layout Typographic based correction algorithm (Typox), inspired by [Ahmad, Indrayana, Wibisono, and Ijtihadie (2017)](https://ieeexplore.ieee.org/document/8257147). This implementation might not be the exact one specified in the paper since it is not available to read for free
 
-All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/Trie) based dictionary for efficient storage and fast computation! The implementations of both Edit-distance and Editex algorithms are inspired from the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
+All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/Trie) based dictionary for efficient storage and fast computation! Implementations of all the algorithms are inspired by the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
 
 ## 📦 Installation
 
@@ -29,7 +29,7 @@ pip install spellwise
 
 ## 🧑‍💻 Usage
 
-Currently there are five algorithms available for use with the following classnames,
+Currently, there are five algorithms available for use with the following classnames,
 
 - `Levenshtein`
 - `Editex`
@@ -40,7 +40,7 @@ Currently there are five algorithms available for use with the following classna
 Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-checker/tree/master/examples) folder for specific usage of each algorithm. But in a general sense, each algorithm has three parts,
 
 - Initialization (initialize the class object for the algorithm to use)
-- Index correct words / names (add correct words or names to the dictionary)
+- Index correct words/names (add correct words or names to the dictionary)
 - Fetch suggestions (inference)
 
 ```python
@@ -49,7 +49,7 @@ from spellwise import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
 # (1) Initialize the desired algorithm
 algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or Typox as well
 
-# (2) Index the words / names to the algorithm
+# (2) Index the words/names to the algorithm
 # Indexing can be done by adding words from a file
 algorithm.add_from_path("<path-to-the-dictionary-file>")
 # or by adding them manually
@@ -75,12 +75,12 @@ print(suggestions)
 
 ## 💡 Analysis of each algorithm
 
-There are many algorithms currently available in the package and each one of them are used for different purposes.
+There are many algorithms currently available in the package, each suitable for different purposes.
 We will discuss each algorithm in specific in the following sections.
 
 ### (1) Levenshtein
 
-The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the mispelled word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and correct word.
+The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the misspelt word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and the correctly spelt word.
 
 ```python
 from spellwise import Levenshtein
@@ -120,7 +120,7 @@ nun 	 1
 
 ### (2) Editex
 
-The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
+The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has a different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
 
 ```python
 from spellwise import Editex
@@ -158,9 +158,9 @@ gun 	 2
 
 ```
 
-Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` to be 1 since there is only one replacement necessary. On the other hand, `Editex` algorithm computes this distance to be 2 since phonetically, the words are farther apart.
+Notice that the `Levenshtein` algorithm computes the distance between `run` and `bun` as 1 (since there is only one replacement necessary). On the other hand, `Editex` algorithm computes this distance as 2 since phonetically, the words are farther apart.
 
-As mentioned above, the Editex algorithm uses different costs for replacement and deletetion. These values can be configured for fetching different results.
+As mentioned above, the Editex algorithm uses different costs for replacement and deletion. These values can be modified for fetching different results.
 
 ```python
 from spellwise import Editex
@@ -200,7 +200,7 @@ loon 	 1.0
 
 ### (3) Caverphone 1.0 and Caverphone 2.0
 
-The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
+The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from various sources. In other words, it is used for phonetically identifying duplicate entries of an entity or a word. The difference between the v1 and v2 of the algorithm is in the pre-processing of words during indexing.
 
 ```python
 from spellwise import CaverphoneTwo # or CaverphoneOne
@@ -240,7 +240,7 @@ wren 	 0
 
 ### (4) Typox
 
-The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is based on the philosophy of the `Editex` algorithm by grouping of letters is based on their locations on the keyboard, instead of matching them phonetically. This might not be the exact implementation of the algorithm since the original paper is not available to read for free.
+The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is similar to the `Editex` algorithm, except that the letters are grouped based on their locations on the keyboard, instead of grouping them phonetically. The original paper is not available to read for free, and hence this might not be its exact implementation.
 
 ```python
 from spellwise import Typox
@@ -269,9 +269,9 @@ home 	 2
 phone 	 2
 ```
 
-Notice that `Typox` didn not suggest words like `choke`, `come`, `chore`, `chose` etc., (which `Levenshtein` would suggest) even though they are of edit-distance 2 with the word `ohome`. But it rather suggests closest wrods based on the QWERTY keyboard layout which are `phone` and `home`.
+Notice that `Typox` did not suggest words like `choke`, `come`, `chore`, `chose` etc., (which `Levenshtein` would suggest) even though they are of edit-distance 2 with the word `ohome`. But it rather suggests closest words based on the QWERTY keyboard layout which are `phone` and `home`.
 
-As mentioned above, the Typox algorithm is similar to Editex and uses different costs for replacement and deletetion. These values can also be configured for fetching different results.
+As mentioned above, the Typox algorithm is similar to Editex and uses different costs for replacement and deletion. These values can be modified for fetching different results.
 
 ```python
 from spellwise import Typox
@@ -304,7 +304,7 @@ phones 	 2.0
 
 ## ⚡️ Memory and Time profiling
 
-The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
+The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel Core i5 with 16 GB RAM.
 
 <table>
     <tr>
@@ -385,7 +385,7 @@ The following are the usage statistics on MacBook Pro, 2.4 GHz Quad-Core Intel C
 Please feel free to raise PRs! 😃
 
 There are so many algorithms to be added and improvements to be made to this package.
-This is still in an early version and would love to have you contribute!
+This package is still in an early version and would love to have your contributions!
 
 ## 📝 References
 
