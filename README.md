@@ -80,9 +80,12 @@ The `Levenshtein` algorithm is the baseline and most popular method to identify 
 ```python
 from spellwise import Levenshtein
 
+# Initialise the algorithm
 levenshtein = Levenshtein()
+# Index the words from a dictionary
 levenshtein.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = levenshtein.get_suggestions("run")
 # Print the top 10 suggestions
 print("Word \t Distance")
@@ -117,9 +120,12 @@ The `Editex` algorithm provides suggestions of words which are phonetically clos
 ```python
 from spellwise import Editex
 
+# Initialise the algorithm
 editex = Editex()
+# Index the words from a dictionary
 editex.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = editex.get_suggestions("run")
 # Print the top 10 suggestions
 print("Word \t Distance")
@@ -154,9 +160,12 @@ As mentioned above, the Editex algorithm uses different costs for replacement an
 ```python
 from spellwise import Editex
 
+# Initialise the algorithm
 editex = Editex(group_cost=0.5, non_group_cost=3) # configure the group cost and non-group cost
+# Index the words from a dictionary
 editex.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = editex.get_suggestions("run")
 # Print the top 10 suggestions
 print("Word \t Distance")
@@ -191,9 +200,12 @@ The Caverphone algorithm was developed as a part of the Caversham project to pho
 ```python
 from spellwise import CaverphoneTwo # or CaverphoneOne
 
+# Initialise the algorithm
 caverphone = CaverphoneTwo()
+# Index the words from a dictionary
 caverphone.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = caverphone.get_suggestions("run")
 # Print the top 10 suggestions
 print("Word \t Distance")
@@ -228,9 +240,12 @@ The `Typox` is a Typographic based correction algorithm optimised for correcting
 ```python
 from spellwise import Typox
 
+# Initialise the algorithm
 typox = Typox()
+# Index the words from a dictionary
 typox.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = typox.get_suggestions("ohomr")
 # Print the top 10 suggestions
 print("Word \t Distance")
@@ -256,9 +271,12 @@ As mentioned above, the Typox algorithm is similar to Editex and uses different 
 ```python
 from spellwise import Typox
 
-typox = Typox(group_cost=0.5, non_group_cost=3)
+# Initialise the algorithm
+typox = Typox(group_cost=0.5, non_group_cost=3) # configure the group cost and non-group cost
+# Index the words from a dictionary
 typox.add_from_path("examples/data/american-english")
 
+# Fetch suggestions
 suggestions = typox.get_suggestions("ohomr")
 # Print the top 10 suggestions
 print("Word \t Distance")
