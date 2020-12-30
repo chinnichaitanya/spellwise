@@ -15,7 +15,12 @@ All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/
 
 ## 📦 Installation
 
-To be updated soon!
+The easiest way to install `spellwise` is through `pip`.
+
+```shell
+pip install spellwise
+```
+
 
 ## 🧑‍💻 Usage
 
@@ -49,6 +54,16 @@ algorithm.add_words(["spell", "spelling", "check"])
 suggestions = algorithm.get_suggestions("spellin")
 # The `suggestions` is a list of dict with fields `word` and `distance`
 # [{"word": ..., "distance": ...}, ...]
+print(suggestions)
+
+```
+
+The default maximum distance considered varies for different algorithms. It can be changed while fetching the suggestions,
+
+```python
+# Fetch suggestions with maximum distance 3
+suggestions = algorithm.get_suggestions("spellin", max_distance=3)
+# Print the suggestions
 print(suggestions)
 
 ```
