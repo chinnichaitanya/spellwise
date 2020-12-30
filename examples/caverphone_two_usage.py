@@ -1,4 +1,4 @@
-from spell_checker import CaverphoneTwo
+from spellwise import CaverphoneTwo
 
 suggester = CaverphoneTwo()
 suggester.add_from_path("examples/data/american-english")

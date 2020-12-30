@@ -1,4 +1,4 @@
-from spell_checker import Typox
+from spellwise import Typox
 
 suggester = Typox()
 suggester.add_from_path("examples/data/american-english")

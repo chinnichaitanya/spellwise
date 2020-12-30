@@ -1,4 +1,4 @@
-from spell_checker import Levenshtein
+from spellwise import Levenshtein
 
 suggester = Levenshtein()
 suggester.add_from_path("examples/data/american-english")

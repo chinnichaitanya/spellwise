@@ -1,4 +1,4 @@
-# Python Spelling Checker
+# Spellwise
 
 🚀 Extremely fast spelling checker and suggester in Python!
 
@@ -34,7 +34,7 @@ Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-c
 - Fetch suggestions (inference)
 
 ```python
-from spell_checker import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
+from spellwise import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
 
 # (1) Initialize the desired algorithm
 algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or Typox as well
@@ -63,7 +63,7 @@ We will discuss each algorithm in specific in the following sections.
 The `Levenshtein` algorithm is the baseline and most popular method to identify the closest correct words given the mispelled word, based on the edit-distance (number of insertions, deletions and replacements) between the given word and correct word.
 
 ```python
-from spell_checker import Levenshtein
+from spellwise import Levenshtein
 
 levenshtein = Levenshtein()
 levenshtein.add_from_path("examples/data/american-english")
@@ -100,7 +100,7 @@ nun 	 1
 The `Editex` algorithm provides suggestions of words which are phonetically closed to the given word. It also uses the edit-distance but has different replacement or deletion costs depending on whether the two letters belong to the same phonetic group or not.
 
 ```python
-from spell_checker import Editex
+from spellwise import Editex
 
 editex = Editex()
 editex.add_from_path("examples/data/american-english")
@@ -139,7 +139,7 @@ Notice that the `Levenshtein` algorithm computes the distance between `run` and 
 The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from different sources. In other words, it can be used for phonetically identifying duplicate entries of an entity or word. The difference between the v1 and v2 of the algorithm is in the pre-precessing of the words before comparing.
 
 ```python
-from spell_checker import CaverphoneTwo # or CaverphoneOne
+from spellwise import CaverphoneTwo # or CaverphoneOne
 
 caverphone = CaverphoneTwo()
 caverphone.add_from_path("examples/data/american-english")
@@ -176,7 +176,7 @@ wren 	 0
 The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is based on the philosophy of the `Editex` algorithm by grouping of letters is based on their locations on the keyboard, instead of matching them phonetically. This might not be the exact implementation of the algorithm since the original paper is not available to read for free.
 
 ```python
-from spell_checker import Typox
+from spellwise import Typox
 
 typox = Typox()
 typox.add_from_path("examples/data/american-english")

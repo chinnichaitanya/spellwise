@@ -1,4 +1,4 @@
-from spell_checker import Editex
+from spellwise import Editex
 
 suggester = Editex()
 suggester.add_from_path("examples/data/american-english")
