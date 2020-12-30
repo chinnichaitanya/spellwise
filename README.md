@@ -2,6 +2,11 @@
 
 🚀 Extremely fast spelling checker and suggester in Python!
 
+<a href="https://pypi.org/project/spellwise/"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/spellwise"></a>
+[![PyPI version](https://badge.fury.io/py/spellwise.svg)](https://badge.fury.io/py/spellwise)
+<a href="https://pepy.tech/project/spellwise"><img alt="Downloads" src="https://static.pepy.tech/badge/spellwise"></a>
+<a href="https://pypi.org/project/spellwise/#files"><img alt="PyPI - Wheel" src="https://img.shields.io/pypi/wheel/spellwise"></a>
+[![License: MIT](https://img.shields.io/pypi/l/spellwise)](https://github.com/chinnichaitanya/spellwise/blob/master/LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)
 
 The following algorithms are supported currently,
