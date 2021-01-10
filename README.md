@@ -61,15 +61,21 @@ suggestions = algorithm.get_suggestions("spellin")
 # [{"word": ..., "distance": ...}, ...]
 print(suggestions)
 
+# Output would be similar to the following,
+# [{'word': 'spelling', 'distance': 2}]
+
 ```
 
 The default maximum distance considered varies for different algorithms. It can be changed while fetching the suggestions,
 
 ```python
-# Fetch suggestions with maximum distance 3
-suggestions = algorithm.get_suggestions("spellin", max_distance=3)
+# Fetch suggestions with maximum distance 4
+suggestions = algorithm.get_suggestions("spellin", max_distance=4)
 # Print the suggestions
 print(suggestions)
+
+# Output would be similar to the following,
+# [{'word': 'spelling', 'distance': 2}, {'word': 'spell', 'distance': 4}]
 
 ```
 
