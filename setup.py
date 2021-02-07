@@ -5,7 +5,7 @@ with open("README.md", mode="r") as fd:
 
 setuptools.setup(
     name="spellwise",
-    version="0.5.2",
+    version="0.6.2",
     author="Chaitanya Chinni",
     description="🚀 Extremely fast spelling checker and suggester in Python!",
     license="MIT License",
