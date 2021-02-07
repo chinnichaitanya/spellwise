@@ -11,8 +11,9 @@
 
 The following algorithms are supported currently,
 
-- Edit-distance, [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
-- Editex, [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
+- Edit-distance [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
+- Editex [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
+- Soundex (https://nlp.stanford.edu/IR-book/html/htmledition/phonetic-correction-1.html) (for identifying phonetically similar words)
 - Caverphone 1.0 and Caverphone 2.0 [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
 - QWERTY Keyboard layout Typographic based correction algorithm (Typox), inspired by [Ahmad, Indrayana, Wibisono, and Ijtihadie (2017)](https://ieeexplore.ieee.org/document/8257147). This implementation might not be the exact one specified in the paper since it is not available to read for free
 
@@ -33,6 +34,7 @@ Currently, there are five algorithms available for use with the following classn
 
 - `Levenshtein`
 - `Editex`
+- `Soundex`
 - `CaverphoneOne`
 - `CaverphoneTwo`
 - `Typox`
@@ -44,7 +46,8 @@ Please check the [`examples/`](https://github.com/chinnichaitanya/python-spell-c
 - Fetch suggestions (inference)
 
 ```python
-from spellwise import CaverphoneOne, CaverphoneTwo, Editex, Levenshtein, Typox
+from spellwise import (CaverphoneOne, CaverphoneTwo, Editex, Levenshtein,
+                       Soundex, Typox)
 
 # (1) Initialize the desired algorithm
 algorithm = Editex() # this can be CaverphoneOne, CaverphoneTwo, Levenshtein or Typox as well
@@ -204,7 +207,47 @@ loon 	 1.0
 
 ```
 
-### (3) Caverphone 1.0 and Caverphone 2.0
+### (3) Soundex
+
+The Soundex algorithm, similar to Editex aims to provide phonetically similar words for the give word. It is one of the initial phonetic matching algorithms and many variations exists.
+
+```python
+from spellwise import Soundex
+
+# Initialise the algorithm
+soundex = Soundex()
+# Index the words from a dictionary
+soundex.add_from_path("examples/data/american-english")
+
+# Fetch suggestions
+suggestions = soundex.get_suggestions("run")
+# Print the top 10 suggestions
+print("Word \t Distance")
+print("=================")
+for suggestion in suggestions[0:10]:
+    print("{} \t {}".format(suggestion.get("word"), suggestion.get("distance")))
+
+```
+
+Soundex suggests the following,
+
+```shell
+Word 	 Distance
+=================
+rain 	 0
+rainy 	 0
+ram 	 0
+ram 	 0
+rama 	 0
+ramie 	 0
+ran 	 0
+ranee 	 0
+rayon 	 0
+ream 	 0
+
+```
+
+### (4) Caverphone 1.0 and Caverphone 2.0
 
 The Caverphone algorithm was developed as a part of the Caversham project to phonetically identify the names of different instances of the same person from various sources. In other words, it is used for phonetically identifying duplicate entries of an entity or a word. The difference between the v1 and v2 of the algorithm is in the pre-processing of words during indexing.
 
@@ -244,7 +287,7 @@ wren 	 0
 
 ```
 
-### (4) Typox
+### (5) Typox
 
 The `Typox` is a Typographic based correction algorithm optimised for correcting typos in QWERTY keyboard. This is similar to the `Editex` algorithm, except that the letters are grouped based on their locations on the keyboard, instead of grouping them phonetically. The original paper is not available to read for free, and hence this might not be its exact implementation.
 
@@ -316,6 +359,7 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
     <tr>
         <th>Algorithm</th>
         <th>No. of words</th>
+        <th>Corpus size on disk</th>
         <th>Memory used</th>
         <th>Time to index</th>
         <th>Time to inference</th>
@@ -324,6 +368,7 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
     <tr>
         <td>Levenshtein</td>
         <td>119,095</td>
+        <td>1.1 MB</td>
         <td>~ 127 MB</td>
         <td>~ 1160 milliseconds</td>
         <td>~ 36 milliseconds</td>
@@ -337,6 +382,7 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
     <tr>
         <td>Editex</td>
         <td>119,095</td>
+        <td>1.1 MB</td>
         <td>~ 127 MB</td>
         <td>~ 1200 milliseconds</td>
         <td>~ 90 milliseconds</td>
@@ -348,8 +394,22 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
         </td>
     </tr>
     <tr>
+        <td>Soundex</td>
+        <td>119,095</td>
+        <td>1.1 MB</td>
+        <td>~ 16 MB</td>
+        <td>~ 1130 milliseconds</td>
+        <td>~ 0.18 milliseconds (yes right!)</td>
+        <td>
+            <ul>
+                <li>For word "hallo"</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
         <td>Caverphone 1.0</td>
         <td>119,095</td>
+        <td>1.1 MB</td>
         <td>~ 36.7 MB</td>
         <td>~ 1700 milliseconds</td>
         <td>~ 0.2 milliseconds (yes right!)</td>
@@ -362,6 +422,7 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
     <tr>
         <td>Caverphone 2.0</td>
         <td>119,095</td>
+        <td>1.1 MB</td>
         <td>~ 99 MB</td>
         <td>~ 2400 milliseconds</td>
         <td>~ 0.4 milliseconds (yes right!)</td>
@@ -374,6 +435,7 @@ The following are the usage statistics on a MacBook Pro, 2.4 GHz Quad-Core Intel
     <tr>
         <td>Typox</td>
         <td>119,095</td>
+        <td>1.1 MB</td>
         <td>~ 127 MB</td>
         <td>~ 1360 milliseconds</td>
         <td>~ 200 milliseconds</td>
@@ -402,4 +464,5 @@ This package is still in an early version and would love to have your contributi
 - https://en.wikipedia.org/wiki/Caverphone
 - https://ieeexplore.ieee.org/document/8257147
 - https://www.semanticscholar.org/paper/Edit-distance-weighting-modification-using-phonetic-Ahmad-Indrayana/0d74db8a20f7b46b98c2c77750b9b973a3e4a7b2
+- https://nlp.stanford.edu/IR-book/html/htmledition/phonetic-correction-1.html
 - http://stevehanov.ca/blog/?id=114
