@@ -11,10 +11,10 @@
 
 The following algorithms are supported currently,
 
-- Edit-distance [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
-- Editex [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
+- Edit-distance, [Hall and Dowling (1980)](https://dl.acm.org/doi/10.1145/356827.356830) (based on [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm)
+- Editex, [Zobel and Dart (1996)](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.18.2138&rep=rep1&type=pdf) (for suggesting phonetically similar words)
 - Soundex (https://nlp.stanford.edu/IR-book/html/htmledition/phonetic-correction-1.html) (for identifying phonetically similar words)
-- Caverphone 1.0 and Caverphone 2.0 [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
+- Caverphone 1.0 and Caverphone 2.0, [David Hood (2002)](https://caversham.otago.ac.nz/files/working/ctp060902.pdf) (to identify English names which sound phonetically similar)
 - QWERTY Keyboard layout Typographic based correction algorithm (Typox), inspired by [Ahmad, Indrayana, Wibisono, and Ijtihadie (2017)](https://ieeexplore.ieee.org/document/8257147). This implementation might not be the exact one specified in the paper since it is not available to read for free
 
 All the above algorithms use an underlying [Trie](https://en.wikipedia.org/wiki/Trie) based dictionary for efficient storage and fast computation! Implementations of all the algorithms are inspired by the amazing article [Fast and Easy Levenshtein distance using a Trie, by Steve Hanov](http://stevehanov.ca/blog/?id=114).
