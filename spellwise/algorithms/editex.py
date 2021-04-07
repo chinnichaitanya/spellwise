@@ -105,6 +105,8 @@ class Editex(Base):
             List[dict]: The word suggestions with their corresponding distances
         """
 
+        processed_query_word = self._pre_process(query_word)
+
         def search(dictionary_node, parent_source_letter, previous_row):
             """Search for the candidates in the given dictionary node's children
 
@@ -157,26 +159,27 @@ class Editex(Base):
 
         suggestions = list()
 
-        first_row = [0] * (len(query_word) + 1)
+        first_row = [0] * (len(processed_query_word) + 1)
         first_row[1] = self.NON_GROUP_COST
-        for i in range(2, len(query_word) + 1):
+        for i in range(2, len(processed_query_word) + 1):
             first_row[i] = first_row[i - 1] + self._delete(
-                query_word[i - 2], query_word[i - 1]
+                processed_query_word[i - 2], processed_query_word[i - 1]
             )
         for source_letter in self._dictionary.children:
             second_row = [self.NON_GROUP_COST]
-            for i in range(1, len(query_word) + 1):
+            for i in range(1, len(processed_query_word) + 1):
                 increment_source = self.NON_GROUP_COST
                 if i == 1:
                     increment_target = self.NON_GROUP_COST
                 else:
                     increment_target = self._delete(
-                        query_word[i - 2], query_word[i - 1]
+                        processed_query_word[i - 2], processed_query_word[i - 1]
                     )
                 value = min(
                     first_row[i] + increment_source,
                     second_row[i - 1] + increment_target,
-                    first_row[i - 1] + self._replace(query_word[i - 1], source_letter),
+                    first_row[i - 1]
+                    + self._replace(processed_query_word[i - 1], source_letter),
                 )
                 second_row.append(value)
 
