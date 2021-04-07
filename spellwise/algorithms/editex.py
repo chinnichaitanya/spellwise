@@ -121,7 +121,7 @@ class Editex(Base):
                     + self._delete(parent_source_letter, current_source_letter)
                 ]
 
-                for i in range(1, len(query_word) + 1):
+                for i in range(1, len(processed_query_word) + 1):
                     increment_source = self._delete(
                         parent_source_letter, current_source_letter
                     )
@@ -129,14 +129,16 @@ class Editex(Base):
                         increment_target = self.NON_GROUP_COST
                     else:
                         increment_target = self._delete(
-                            query_word[i - 2], query_word[i - 1]
+                            processed_query_word[i - 2], processed_query_word[i - 1]
                         )
 
                     value = min(
                         previous_row[i] + increment_source,
                         current_row[i - 1] + increment_target,
                         previous_row[i - 1]
-                        + self._replace(current_source_letter, query_word[i - 1]),
+                        + self._replace(
+                            current_source_letter, processed_query_word[i - 1]
+                        ),
                     )
                     current_row.append(value)
 
