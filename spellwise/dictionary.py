@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 
 class Dictionary(object):
@@ -8,11 +8,11 @@ class Dictionary(object):
         self.words_at_node = None
         self.children = {}
 
-    def add_words(self, words: List[str]) -> None:
+    def add_words(self, words: List[Tuple[str, str]]) -> None:
         """Add words to index to the Trie dictionary
 
         Args:
-            words (List[str]): The list of words to index to the dictionary
+            words (List[Tuple[str, str]]): The list of words to index to the dictionary
         """
 
         for word in words:
